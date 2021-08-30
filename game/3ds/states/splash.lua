@@ -30,7 +30,7 @@ function drawSplash()
 		lg.draw(titlebg)
 		
 		lgsetColor(64,64,64,alpha)
-		lg.print('Unofficial port by LukeeGD',245,5)
+		lg.print('Unofficial port by GameVasion',230,5)
 		drawBottomScreen()
 		menu_draw()
 	end

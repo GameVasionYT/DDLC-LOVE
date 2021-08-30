@@ -930,13 +930,13 @@ function ch0script()
 	--NEW GAME
 	if cl == 10016 then 
 		bgUpdate('warning')
-		cw('bl','This is an unofficial port of Doki Doki Literature Club.')
+		cw('bl','Doki Doki Exit Music is a Doki Doki Literature Club fan mod that is not affiliated with Team Salvato.')
 	elseif cl == 10017 then
-		cw('bl','This port, or the original game is not suitable for children or those who are easily disturbed.')
+		cw('bl','It was created by Lucy CN, Jacob Smallman and Malukah Maker.')
 	elseif cl == 10018 then
-		cw('bl','Individuals suffering from anxiety or depression may not have a safe experience playing this game. For content warnings, please visit: http://ddlc.moe/warning.html')
+		cw('bl','It is designed to be played only after the official game has been completed, and contains spoilers for the official game.')
 	elseif cl == 10019 then
-		cw('bl','By playing Doki Doki Literature Club, you agree that you are at least 13 years of age, and you consent to your exposure of highly disturbing content.')
+		cw('bl','By playing Doki Doki Exit Music you agree that you have completed Doki Doki Literature Club and accept any spoilers contained within.')
 	elseif cl == 10020 then
 		menutext = ''
 		choices = {'I agree.'}

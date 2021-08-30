@@ -15,9 +15,9 @@ function event_draw_1()
 		if event_timer >= 8.75 and event_timer < 10 then
 			bgs.ny = bgs.ny-love.math.random(-50,50)
 			bgs.my = bgs.my-love.math.random(-50,50)
-			lg.draw(menu_art_n,love.math.random(140,180),bgs.ny,0,0.6)
-			lg.draw(menu_art_m,love.math.random(240,280),bgs.my,0,0.5)
-			lg.draw(menu_art_y,love.math.random(950,1100),love.math.random(350,500),0,0.7)
+			--lg.draw(menu_art_n,love.math.random(140,180),bgs.ny,0,0.6)
+			lg.draw(menu_art_n,love.math.random(240,280),bgs.my,0,0.5)
+			--lg.draw(menu_art_y,love.math.random(950,1100),love.math.random(350,500),0,0.7)
 		end
 		lg.draw(s_killzoom, eventvar2)
 		

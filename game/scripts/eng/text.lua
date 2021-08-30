@@ -36,22 +36,7 @@ will like. Something good might happen with
 whoever likes your poem the most!
 ]]
 tr.splash = {
-	"You are my sunshine,\nMy only sunshine",
-	"I missed you.",
-	"Play with me",
-	"It's just a game, mostly.",
-	"This game is not suitable for children\nor those who are easily disturbed?",
-	"sdfasdklfgsdfgsgoinrfoenlvbd",
-	"null",
-	"I have granted kids to hell",
-	"PM died for this.",
-	"It was only partially your fault.",
-	"This game is not suitable for children\nor those who are easily dismembered.",
-	"Don't forget to backup Monika's character file.",
-	"This game is not suitable for children",
-	"  or those who are easily disturbed.",
-	"Now everyone can be happy.",
-	"Unofficial port by LukeeGD"--.."\nTranslations by: ..." --you may add more credits here
+	"This game is an unofficial fan work, created by Lucy CN, Jacob Smallman and Malukah Maker.",
 }
 tr.menuitem = {'Yes','No','Delete ','Restore All'}
 tr.menuhelp = {

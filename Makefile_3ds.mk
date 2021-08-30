@@ -53,11 +53,11 @@ BUILD           := $(TOPDIR)
 
 ROMFS           := game/
 
-APP_TITLE       := DDLC-LOVE
-APP_AUTHOR      := LukeeGD
+APP_TITLE       := DDEM-LOVE
+APP_AUTHOR      := GameVasion
 APP_TITLEID     := 0xDDFC
 APP_VERSION     := 1.1
-APP_DESCRIPTION := An unofficial DDLC port for the 3DS!
+APP_DESCRIPTION := An unofficial DDEM port for the 3DS!
 
 ICON            := data/icon.png
 
@@ -76,8 +76,8 @@ BANNER_AUDIO    := data/audio.wav
 BANNER_IMAGE    := data/banner.png
 
 ICON_FLAGS      := nosavebackups,visible
-UNIQUE_ID       := 0xDDFC # must be unique!
-PRODUCT_CODE    := CTR-H-DDLC # change this too
+UNIQUE_ID       := 0xDDEC # must be unique!
+PRODUCT_CODE    := CTR-H-DDEM # change this too
 
 #---------------------------------------------------------------------------------
 # build options
