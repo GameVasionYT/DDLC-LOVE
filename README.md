@@ -10,10 +10,10 @@
 
 ## Some notes:
 - (Switch) Only **[Atmosphère](https://github.com/Atmosphere-NX/Atmosphere)** is supported.
-- (Switch) (LP1.1.0) For Atmosphère 0.10.2 and up, add `enable_deprecated_hid_mitm = u8!0x1` in `sdmc:/atmosphere/config/system_settings.ini` under `[Atmosphere]` (see [#111](https://github.com/LukeZGD/DDLC-LOVE/issues/111))
+- (Switch) For Atmosphère 0.10.2 and up, add `enable_deprecated_hid_mitm = u8!0x1` in `sdmc:/atmosphere/config/system_settings.ini` under `[Atmosphere]` (see [#111](https://github.com/LukeZGD/DDLC-LOVE/issues/111))
 - (3DS) Only the **latest [Luma3DS](https://github.com/AuroraWright/Luma3DS)** is supported.
 - (3DS) Make sure that `dspfirm.cdc` is dumped for audio to work (use [DSP1](https://github.com/zoogie/DSP1/releases))
-- DDLC-LOVE will no longer be updated.
+- DDLC-LOVE is only fully supported on Nintendo Switch and Sony PS Vita. For other systems, see [#123](https://github.com/LukeZGD/DDLC-LOVE/issues/123)
 
 ## Usage:
 - **Switch** - Run the `.nro` with [Atmosphère](https://github.com/Atmosphere-NX/Atmosphere) title takeover functionality. Other methods can be found [here](https://turtlep.github.io/LovePotion/wiki/#/packaging)

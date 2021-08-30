@@ -1,18 +1,36 @@
-dversion = 'v1.1.9'
+dversion = 'v1.1.8-2'
 dvertype = '' --put 'Test' for test mode
 print("DDLC-LOVE "..dversion..' '..dvertype)
 
+if lutro then
+	love = lutro
+	function love.conf(t)
+		t.width = 480
+		t.height = 272
+	end
+end
 global_os = love.system.getOS()
 g_system = love._console_name
 if g_system == 'Switch' then
 	joysticks = love.joystick.getJoysticks()
 	joystick = joysticks[1]
 end
-love.math.setRandomSeed(os.time())
-math.randomseed(os.time())
-math.random()
-math.random()
-math.random()
+if global_os == 'Horizon' and g_system ~= 'Switch' and global_os ~= 'LOVE-WrapLua' then
+	branch = '3ds'
+else
+	branch = 'ddlclove'
+end
+
+os_timecheck = os.time()
+if os_timecheck then
+	if branch == 'ddlclove' then
+		love.math.setRandomSeed(os.time())
+	end
+	math.randomseed(os.time())
+	math.random()
+	math.random()
+	math.random()
+end
 
 local require_old = require
 function require(req)
@@ -21,16 +39,20 @@ function require(req)
 end
 
 require('loader/characters')
-require('loader/audio')
-require('loader/images')
+require(branch..'/loader/audio')
+require(branch..'/loader/images')
 require('loader/states')
-require('menu')
+require(branch..'/main')
+require(branch..'/menu')
 require('saveload')
 require('draw')
 require('scripts/script')
 
 function love.load() 
 	lg.setBackgroundColor(0,0,0)
+	if lutro then
+		dfnt = love.graphics.newImageFont('FontMedium.png', " 0123456789abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ!-.,$")
+	end
 	getTime = 0
 	startTime = getTime
 	last_text = ''
@@ -50,7 +72,7 @@ function love.load()
 		lg.set3D(true)
 	end
 	
-	if global_os ~= 'Horizon' and global_os ~= 'LOVE-WrapLua' then
+	if global_os ~= 'Horizon' and global_os ~= 'LOVE-WrapLua' and not lutro then
 		love.window.setFullscreen(true)
 		love.window.setTitle('DDLC-LOVE')
 		love.keyboard.setTextInput(false)
@@ -92,19 +114,7 @@ function love.update()
 	sectimer = sectimer + dt
 	if sectimer >= 1 then sectimer = 0 end
 	
-	getTime = getTime + dt
-	--moving background
-	posX = posX - 0.625
-	posY = posY - 0.625
-	if posX <= -200 then posX = 0 end
-	if posY <= -200 then posY = 0 end
-	
-	--custom audio looping
-	if audio_bgm and audio_bgmloop then
-		if not audio_bgm:isPlaying() and not audio_bgmloop:isPlaying() then
-			audio_bgmloop:play()
-		end
-	end
+	main_update()
 	
 	--update depending on gamestate
 	if state == 'load' then
@@ -151,27 +161,6 @@ function love.keypressed(key)
 	end
 end
 
-function love.gamepadpressed(joy, button)
-	if button == 'dpup' then
-		button = 'up'
-	elseif button == 'dpdown' then
-		button = 'down'
-	elseif button == 'dpleft' then
-		button = 'left'
-	elseif button == 'dpright' then
-		button = 'right'
-	elseif button == 'a' then
-		button = 'b'
-	elseif button == 'b' then
-		button = 'a'
-	elseif button == 'x' then
-		button = 'y'
-	elseif button == 'y' then
-		button = 'x'
-	end
-	love.keypressed(button)
-end
-
 function love.textinput(text)
 	if text ~= '' and m_selected ~= 3 then 
 		player = text
@@ -183,27 +172,5 @@ function love.textinput(text)
 		savepersistent()
 	else
 		changeState('title')
-	end
-end
-
-function game_setvolume()
-	if not settings.masvol or not settings.bgmvol or not settings.sfxvol then
-		settings.masvol = 80
-		settings.bgmvol = 80
-		settings.sfxvol = 80
-	end
-	
-	local masvol = settings.masvol/100
-	local bgmvol = (settings.bgmvol/100)*masvol
-	local sfxvol = (settings.sfxvol/100)*masvol
-	if dvertype == '' then
-		if audio_bgm then
-			audio_bgm:setVolume(bgmvol)
-		end
-		if audio_bgmloop then
-			audio_bgmloop:setVolume(bgmvol)
-		end
-		sfx1:setVolume(sfxvol)
-		sfx2:setVolume(sfxvol)
 	end
 end

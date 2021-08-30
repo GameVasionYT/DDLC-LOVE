@@ -57,14 +57,15 @@ tr.menuitem = {'Sí','No','Borrar ','Restaurar todo'}
 tr.menuhelp = {
 	' : Avanzas en el juego, seleccionas alguna opción en las elecciones',
 	' : Te sales del menú, activas o desactivas el modo automático',
-	' : Activas o desactivas el modo saltar',
-	' : Entras en el menú del juego',
+	' : (Menú) Página anterior, activas o desactivas el modo saltar',
+	' : (Menú) Página siguiente, entras en el menú del juego',
 	' : Muestra o oculta la ventana de diálogos',
 	'Configurar archivos: Vete a ajustes > Characters',
 	[[
 	Borrar los datos guardados: Para borrar los datos guardados tienes que ir a la siguiente ruta:
 	Switch: sdmc:/switch/DDLC-LOVE/
 	PS Vita: ux0:/data/DDLC-LOVE/savedata/
+	PSP: ms0:/data/DDLC-LOVE/savedata/
 	]],
 	"No te molestes en guardar ya.\nDescuida, que de aquí no me voy.",
 	"¿Quieres volver al menú principal?",
@@ -167,5 +168,19 @@ Se ha detectado unas partidas guardadas de DDLC-LOVE antíguas y no son compatib
 Elimina las partidas guardadas e inténtalo de nuevo.
 
 Puedes borrar las partidas aquí:
-> ]]
+> ]],
+[[
+¡Error!
+Se ha detectado una PSP 1000. DDLC-LOVE no funciona bien debido a que tiene
+poca memoria RAM. (32 MB e 1000 y 64 MB en otros modelos.)
+]],
+[[
+¡Aviso!
+os.time() ha devuelto nulo
+
+Tal vez tu consola nunca haya estado conectado a internet o es un bug que no sea capaz
+de solucionar. El juego funcionará pero es posible que algunas cosas no funcionen bien.
+
+Pulsa A/Equis para continuar
+]]
 }
