@@ -12,7 +12,8 @@ function loaderAssets(l_timer)
 	elseif l_timer == 97 then
 		sfx1 = love.audio.newSource('assets/audio/sfx/select'..audio_ext,'static')
 		sfx2 = love.audio.newSource('assets/audio/sfx/hover'..audio_ext,'static')
-		menu_bg_m = lgnewImage("assets/images/gui/menu_bg_m.jpg")
+		menu_bg_m = lgnewImage("assets/images/gui/menu_bg_m.png")
+
 		gui.keysbox = lgnewImage("assets/images/gui/button/box.png")
 		gui.mmenu = lgnewImage("assets/images/gui/overlay/main_menu.png")
 		gui.gmenu = lgnewImage("assets/images/gui/overlay/game_menu.png")
@@ -21,27 +22,38 @@ function loaderAssets(l_timer)
 		--splash, title screen, gui elements, sfx
 		namebox = lgnewImage('assets/images/gui/namebox.png')
 		textbox = lgnewImage('assets/images/gui/textbox.png')
-		menu_bg = lgnewImage('assets/images/gui/menu_bg.jpg')
+		menu_bg = lgnewImage('assets/images/gui/menu_bg.png')
 		gui.check = lgnewImage('assets/images/gui/button/check_selected_foreground.png')
 		gui.ctc = lgnewImage('assets/images/gui/ctc.png')
 		gui.skip = lgnewImage('assets/images/gui/skip.png')
 		gui.sidebar = lgnewImage('assets/images/gui/overlay/sidebar.png')
 		gui.slothover = lgnewImage('assets/images/gui/button/slot_hover_background.png')
+		gui.slotidle = lgnewImage('assets/images/gui/button/slot_idle_background.png')
 		gui.scrbarh = lgnewImage('assets/images/gui/scrollbar/horizontal_poem_bar.png')
-		gui.scrhover = lgnewImage('assets/images/gui/slider/horizontal_hover_thumb.png')
+		gui.scrhover = lgnewImage('assets/images/gui/slider/horizontal_hover_thumb.png')		
 		
 	elseif l_timer == 99 then
-		dfnt = lg.newFont('assets/fonts/VerilySerifMono.ttf',23) --act 2 "edited" text font
-		rifficfont = lg.newFont('assets/fonts/RifficFree-Bold.ttf',24) --charactername font
 		m1 = lg.newFont('assets/fonts/m1.ttf',30) --monika poem font
 		y1 = lg.newFont('assets/fonts/y1.ttf',33) --yuri poem font
 		s1 = lg.newFont('assets/fonts/s1.ttf',35) --sayori poem font
 		n1 = lg.newFont('assets/fonts/n1.ttf',24) --natsuki poem font
+		dfnt = lg.newFont('assets/fonts/VerilySerifMono.ttf',23) --act 2 "edited" text font
+		halogenfont = lg.newFont('assets/fonts/Halogen.ttf',28) --poem game font
+		rifficfont = lg.newFont('assets/fonts/RifficFree-Bold.ttf',24) --charactername font
 		
+		
+		--[[
+		if settings.lang == 'languagecode' then
+			m1 = lg.newFont('assets/fonts/nameoffont.ttf',fontsize)
+			--set custom fonts for translations here!
+		end
+		]]
+
 	elseif l_timer == 101 then
 		gui.mainbuttons = lgnewImage("assets/images/gui/overlay/"..settings.lang.."/mainbuttons.png")
 		gui.gamebuttons = lgnewImage("assets/images/gui/overlay/"..settings.lang.."/gamebuttons.png")
 		gui.history = lgnewImage("assets/images/gui/overlay/"..settings.lang.."/history.png")
+		gui.gamemenu = lgnewImage("assets/images/gui/overlay/"..settings.lang.."/gamemenu.png")
 		gui.load = lgnewImage("assets/images/gui/overlay/"..settings.lang.."/load.png")
 		gui.save = lgnewImage("assets/images/gui/overlay/"..settings.lang.."/save.png")
 		gui.settings = lgnewImage("assets/images/gui/overlay/"..settings.lang.."/settings.png")

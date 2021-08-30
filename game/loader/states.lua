@@ -15,7 +15,7 @@ function changeState(cstate,x)
 	end
 	
 	if cstate == 'splash' then
-		splash = lgnewImage('assets/images/bg/splash.jpg')
+		splash = lgnewImage('assets/images/bg/splash.png')
 		alpha = 0
 		audioUpdate('1')
 	elseif cstate == 'title' then
@@ -61,7 +61,7 @@ function changeState(cstate,x)
 		elseif x == 3 then -- poemgame to game
 			cl = cl + 2
 		end
-		if global_os == 'LOVE-WrapLua' and persistent.ptr <= 2 and (chapter < 23 or (chapter == 23 and cl < 1939)) then
+		if global_os == 'LOVE-WrapLua' and persistent.ptr <= 2 and chapter < 23 then
 			if chapter <= 5 then
 				persistent.chr.m = 2
 			else
@@ -77,7 +77,7 @@ function changeState(cstate,x)
 		if chapter <= 5 then
 			persistent.chr.m = 1
 			savepersistent()
-		elseif chapter < 23 or (chapter == 23 and cl < 1939) then
+		elseif chapter < 23 then
 			persistent.chr.m = savevalue
 			savepersistent()
 		end
@@ -85,14 +85,13 @@ function changeState(cstate,x)
 		require('states/game')
 		cl = 10016
 	elseif cstate == 'poemgame' then --load poemgame assets and state
-		halogenfont = lg.newFont('assets/fonts/Halogen.ttf',28) --poem game font
 		if persistent.ptr <= 2 then --acts 1 and 2
 			audioUpdate('4',true)
 			bg1 = 'notebook'
-			if not notebook then notebook = lgnewImage('assets/images/bg/notebook.jpg') end
+			if not notebook then notebook = lgnewImage('assets/images/bg/notebook.png') end
 		elseif persistent.ptr == 3 then --act 3
 			audioUpdate('ghostmenu')
-			notebook_glitch = lgnewImage('assets/images/bg/notebook-glitch.jpg')
+			notebook_glitch = lgnewImage('assets/images/bg/notebook-glitch.png')
 		end
 		
 		if poemstate == 0 and not poemtime then --first time poemgame
@@ -105,7 +104,7 @@ function changeState(cstate,x)
 				s_sticker_1 = lgnewImage('assets/images/gui/poemgame/s_sticker_1.png')
 				s_sticker_2 = lgnewImage('assets/images/gui/poemgame/s_sticker_2.png')
 			elseif not eyes then --act 2 only stickers
-				eyes = lgnewImage('assets/images/bg/eyes.jpg')
+				eyes = lgnewImage('assets/images/bg/eyes.png')
 				m_sticker_2 = lgnewImage('assets/images/gui/poemgame/m_sticker_2.png')
 				y_sticker_1_broken = lgnewImage('assets/images/gui/poemgame/y_sticker_1_broken.png')
 				y_sticker_2g = lgnewImage('assets/images/gui/poemgame/y_sticker_2g.png')

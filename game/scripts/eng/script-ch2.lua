@@ -808,9 +808,9 @@ function ch2script()
 		updateMonika('2','d')
 		cw('m',"Now, let's see...")
 	elseif cl == 1745 then
-		cw('bl',"Monika flips through her notebook to the specific poem she has in mind for herself.")
+		cw('m',"Monika flips through her notebook to the specific poem she has in mind for herself.")
 	elseif cl == 1746 then
-		cw('bl',"She then stands behind the podium.")
+		cw('m',"She then stands behind the podium.")
 	elseif cl == 1747 then
 		hideSayori()
 		hideNatsuki()
@@ -1252,17 +1252,12 @@ function ch2script()
 	elseif cl == 1922 then
 		cw('mc',"Jeez, guys...")
 	elseif cl == 1923 then
-		scriptJump(1980)
-	elseif cl == 1980 then
 		cw('mc',"Don't make such a big deal out of it.")
-	elseif cl == 1981 then
 		updateNatsuki('2','d',220)
 		updateSayori('1','q',120)
 		updateMonika('5a','',30)
 		updateYuri('1','u',-60)
 		cw('y',"It must be a little nice, though...")
-	elseif cl == 1982 then
-		scriptJump(1924)
 	elseif cl == 1924 then
 		cw('mc',"Well...")
 	elseif cl == 1925 then
@@ -1343,7 +1338,7 @@ function ch2script()
 		cw('bl',"Who knows what will happen in that time?")
 	elseif cl == 1975 then
 		fadeOut(1)
-	elseif cl >= 1976 and cl < 1980 then
+	elseif cl >= 1976 then
 		cl = 1975
 	end
 end

@@ -248,7 +248,7 @@ function ch30script()
 	elseif cl == 105 then
 	m "It kind of freaked me out, how easy it was."
 	elseif cl == 106 then
-	cw('m',"Well, you're playing on a "..g_system..", so it was actually a bit less difficult...")
+	cw('m',"Well, you're playing on a "..global_os..", so it was actually a bit less difficult...")
 	elseif cl == 107 then
 	m "I just had to go to 'Settings' and find the 'Characters' button..."
 	elseif cl == 108 then
@@ -308,7 +308,6 @@ function ch30script()
 	elseif cl == 131 then
 		if xaload == 0 then
 			sfxplay('pageflip')
-			require('loader/assets_poems')
 			require('scripts/'..settings.lang..'/poems')
 		else
 			poem('poem_m4')
@@ -484,15 +483,12 @@ function ch30_end()
 	updateConsole("_", "monika.chr does not exist.")
 	pause(1)
 	elseif cl == 1065 then
-	event_end('next')
-	elseif cl == 1066 then
 	cw(gtext12,"HELP ME!!!")
-	event_init('monika_end','show_noise')
-	elseif cl == 1067 then
+	elseif cl == 1066 then
+	event_end('next')
 	sfxplay('monikapound')
-	if xaload == 1 then
-		event_start('monika_end','show_noise')
-	end
+	elseif cl == 1067 then
+	event_initstart('monika_end','show_noise')
 	pause(3)
 	elseif cl == 1068 then
 	updateConsole(zfile.."(\"characters/monika.chr\")","monika.chr does not exist.")
@@ -664,9 +660,6 @@ function ch30_end()
 	persistent.chr.s = 1
 	persistent.ptr = 4
 	savepersistent()
-	if global_os == "LOVE-WrapLua" then
-		love.event.quit('restart')
-	end
 	changeState('splash')
 	end
 end
@@ -743,7 +736,7 @@ function ch30_reload_2()
 	elseif cl == 179 then
 	m "I'm pretty sure you can find it in the folder called characters."
 	elseif cl == 180 then
-	cw('m',"Well, you're playing on a "..g_system..", so you can just go to 'Settings' and find the 'Characters' button.")
+	cw('m',"Well, you're playing on a "..global_os..", so you can just go to 'Settings' and find the 'Characters' button.")
 	elseif cl == 181 then
 	m "I'm all that's left here, so I just want to make sure you don't run the risk of losing me..."
 	elseif cl == 182 then
@@ -791,7 +784,7 @@ function ch30_reload_4()
 	elseif cl == 196 then
 	m "It's in the characters folder."
 	elseif cl == 197 then
-	cw('m',"Well, you're playing on a "..g_system..", so you can just go to 'Settings' and find the 'Characters' button.")
+	cw('m',"Well, you're playing on a "..global_os..", so you can just go to 'Settings' and find the 'Characters' button.")
 	elseif cl == 198 then
 	m "I'm all that's left here, so I just want to make sure you don't run the risk of losing me..."
 	elseif cl == 199 then
@@ -1962,9 +1955,7 @@ function ch30_32()
 end
 
 function ch30_33()
-	if cl < 696 then
-	scriptJump(696)
-	elseif cl == 696 then
+	if cl < 697 then
 	m "Hey, do you like horror?"
 	elseif cl == 697 then
 	m "I remember we talked about it a little bit when you first joined the club."

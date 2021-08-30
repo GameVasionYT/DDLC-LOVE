@@ -152,7 +152,7 @@ function event_keypressed(key)
 		menu_mchance = math.random(1,50)
 		menu_enable('pause')
 	elseif (key == 'start' or key == 'return') and event_type == 'ch23-30' and chapter == 30 then --auto
-		sfxplay2(sfx1)
+		sfx1:play()
 		if autotimer == 0 then autotimer = 0.01 else autotimer = 0 end		
 	elseif (key == 'back' or key == '-') and event_type == 'ch23-30' then
 		if settings.o ~= 1 then settings.o = 1
@@ -161,7 +161,7 @@ function event_keypressed(key)
 end
 
 function event_draw()
-	lg.setColor(255,255,255)
+	lgsetColor(255,255,255)
 	
 	if persistent.ptr <= 1 then
 		if event_draw_1 then event_draw_1() end
@@ -172,14 +172,14 @@ function event_draw()
 	end
 	
 	if event_type == 'wipe' then
-		lg.setColor(255,255,255,alpha)
+		lgsetColor(255,255,255,alpha)
 		lg.draw(bgch)
-		lg.setColor(0,0,0,eventvar1)
+		lgsetColor(0,0,0,eventvar1)
 		lg.rectangle('fill',0,0,1280,725)
 	end
 	
 	if event_type == 'endscreen' then
-		lg.setColor(255,255,255,eventvar1)
+		lgsetColor(255,255,255,eventvar1)
 		lg.draw(bgch)
 	end
 	
@@ -187,30 +187,29 @@ function event_draw()
 		if bg1 ~= 'cg/monika_bg_glitch' then lg.draw(bgch) end
 		drawYuri()
 		if chapter == 40 then
-			lg.setColor(0,0,0,128)
+			lgsetColor(0,0,0,128)
 		else
-			lg.setColor(0,0,0,192)
+			lgsetColor(0,0,0,192)
 		end
 		lg.rectangle('fill',0,0,1280,725)
-		lg.setColor(255,255,255,255)
+		lgsetColor(255,255,255,255)
 		if bg1 == 'cg/monika_bg_glitch' then lg.draw(bgch) end
 		if cl < 271 then drawSayori() end
 		if not menu_enabled and cl >= 286 and cl <= 290 then
-			lg.setColor(255,255,255,128)
+			lgsetColor(255,255,255,128)
 			lg.rectangle('fill',0,0,1280,725)
 		end
 	end
 	
 	if event_type == 'just_monika' then
-		lg.setColor(255,255,255,255)
-        lg.rectangle('fill',0,0,1280,725)
+		lg.setBackgroundColor(255,255,255)
 		if event_timer < 3.75 then
-			lg.setColor(255,255,255,alpha)
+			lgsetColor(255,255,255,alpha)
 			lg.draw(splash)
-			lg.setColor(0,0,0,alpha)
+			lgsetColor(0,0,0,alpha)
 			lg.print('DDLC-LOVE '..dversion..' '..dvertype,15,675)
 		else
-			lg.setColor(0,0,0,alpha)
+			lgsetColor(0,0,0,alpha)
 			lg.print('Just Monika.', 544, 300)
 		end
 	end
@@ -226,12 +225,12 @@ function event_draw()
 		if poem_enabled then drawPoem()	end
 		if autotimer > 0 then
 			lg.draw(gui.skip,0,27)
-			lg.setColor(0,0,0)
+			lgsetColor(0,0,0)
 			outlineText(tr.auto,5,35)
 		end
 	end
 	
-	lg.setColor(255,255,255,255)
+	lgsetColor(255,255,255,255)
 	lg.setFont(allerfont)
 	if textbox_enabled then
 		if dvertype == 'Test' then lg.print(cl,5,690) end
@@ -239,14 +238,14 @@ function event_draw()
 	end
 	
 	if event_type == 'm_onlayer_front' or event_type == 'ny_argument2' then
-		lg.setColor(255,255,255)
+		lgsetColor(255,255,255)
 		drawMonika()
 		textbox_enabled = true
 	elseif event_type == 'yuri_ch23_2' then
-		lg.setColor(255,255,255,eventvar2)
+		lgsetColor(255,255,255,eventvar2)
 		drawMonika()
 	elseif event_type == 'show_dark' and cl >= 271 and chapter == 40 then
-		lg.setColor(255,255,255,255)
+		lgsetColor(255,255,255,255)
 		drawSayori()
 	end
 	

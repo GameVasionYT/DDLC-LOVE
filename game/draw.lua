@@ -1,15 +1,23 @@
-if love.getVersion() >= 11 then
-	require('cindy').applyPatch()
-end
 lg = love.graphics
+
+--local lgsetColor = lg.setColor
+function lgsetColor(...)
+	local args = {...}
+	if love.getVersion() >= 11 then
+		for i = 1, #args do
+			if args[i] > 0 then
+				args[i] = args[i] / 255
+			end
+		end
+	end
+	lg.setColor(args[1],args[2],args[3],args[4])
+end
 
 --local lgnewImage = lg.newImage
 function lgnewImage(new)
 	--print('lgnewImage: '..new)
 	if love.filesystem.getInfo(new) then
-		local img = lg.newImage(new)
-        --love.filesystem.append("logfile",'lgnewImage: '..img..' '..new)
-        return img
+		return lg.newImage(new)
 	end
 end
 
@@ -27,9 +35,13 @@ function lg.print(text, ...)
 	end
 end
 
+local lgrectangle = lg.rectangle
+function lg.rectangle(mode,x,y,w,h)
+	lgrectangle(mode,x,y,w,h)
+end
+
 local lgnewFont = lg.newFont
 function lg.newFont(font,size)
-	--love.filesystem.append("logfile",'lgnewFont: '..font)
 	--print('lgnewFont: '..font)
 	return lgnewFont(font,size)
 end
@@ -40,25 +52,6 @@ function lg.setFont(setfont)
 		lgsetFont(setfont)
 	else
 		lgsetFont(dfnt)
-	end
-end
-
-if g_system ~= "Vita" then
-	Font = {}
-	Graphics = {}
-	function Font.unload()
-		return
-	end
-	function Graphics.freeImage()
-		return
-	end
-else
-	freeimage_old = Graphics.freeImage
-	function Graphics.freeImage(img)
-		--love.filesystem.append("logfile", "freeimage: "..img)
-		if type(img) == "number" then
-			freeimage_old(img)
-		end
 	end
 end
 
@@ -118,7 +111,7 @@ function fadeOut(x)
 end
 
 local xps = {c=260,ct=285,textbox=230,namebox=260}
-local yps = {c={593,623,653,683},ct=532,textbox=565,namebox=527}
+local yps = {c={593,623,653,683},ct=532,textbox=565,namebox=526}
 local gui_ctc_x = 1015
 local xh
 local yh
@@ -130,19 +123,19 @@ unitimer = 0
 uniduration = 0.25
 
 function outlineText(text,x,y,type,arg1)
-	if settings.o == 1 and type ~= 'poemgame' and type ~= 'm_selected' then
-		lg.setColor(0,0,0,alpha)
+	if settings.o == 1 then
+		lgsetColor(0,0,0,alpha)
 	else
 		local addm = 1.5
 		if type == 'ct' then
-			lg.setColor(187,85,153,alpha)
+			lgsetColor(187,85,153,alpha)
 			addm = 2.35
 		elseif style_edited and (type == 'c_disp' or type == 'printf') then
-			lg.setColor(255,255,255,alpha)
+			lgsetColor(255,255,255,alpha)
 		elseif type == 'poemgame' then
-			lg.setColor(255,175,255,alpha)
+			lgsetColor(255,175,255,alpha)
 		else
-			lg.setColor(0,0,0,alpha)
+			lgsetColor(0,0,0,alpha)
 		end
 		if type == 'printf' and global_os ~= 'LOVE-WrapLua' then
 			lg.printf(text,x-addm,y,arg1)
@@ -156,9 +149,9 @@ function outlineText(text,x,y,type,arg1)
 			lg.print(text,x,y+addm)
 		end
 		if style_edited and (type == 'c_disp' or type == 'printf') then
-			lg.setColor(0,0,0,alpha)
+			lgsetColor(0,0,0,alpha)
 		else
-			lg.setColor(255,255,255,alpha)
+			lgsetColor(255,255,255,alpha)
 		end
 	end
 	if type == 'printf' and global_os ~= 'LOVE-WrapLua' then
@@ -190,18 +183,18 @@ end
 
 function drawTextBox()
 	if sectimer >= 0.5 then
-		gui_ctc_x = math.max(gui_ctc_x - dt*5, 1015)
+		gui_ctc_x = math.max(gui_ctc_x - 0.1, 1015)
 	else
-		gui_ctc_x = math.min(gui_ctc_x + dt*5, 1020)
+		gui_ctc_x = math.min(gui_ctc_x + 0.1, 1020)
 	end
 	
 	if menu_type ~= 'choice' and not poem_enabled then
-		lg.setColor(255,255,255,alpha)
+		lgsetColor(255,255,255,alpha)
 		if ct ~= '' then lg.draw(namebox, xps.namebox, yps.namebox) end
 		lg.draw(textbox, xps.textbox, yps.textbox)
 		if print_full_text then lg.draw(gui.ctc, gui_ctc_x, 685) end
 		
-		lg.setColor(0,0,0,alpha)
+		lgsetColor(0,0,0,alpha)
 		lg.setFont(rifficfont)
 		outlineText(ct,xps.ct,yps.ct,'ct')
 		
@@ -220,10 +213,10 @@ function drawPoem()
 	if poembg then
 		lg.draw(poembg, 240, 0)
 	elseif yuri_3 then
-		lg.setColor(255,0,0,192)
+		lgsetColor(255,0,0,192)
 		lg.rectangle('fill',240,0,800,725)
 	else
-		lg.setColor(243,243,243)
+		lgsetColor(243,243,243)
 		lg.rectangle('fill',240,0,800,725)
 	end
 	if poem_author == 'monika' then
@@ -235,7 +228,7 @@ function drawPoem()
 	elseif poem_author == 'natsuki' then
 		lg.setFont(n1)
 	end
-	lg.setColor(0,0,0)
+	lgsetColor(0,0,0)
 	if poemtext and poem_scroll then
 		for i = 1, #poemtext do
 			if poemtext[i] then
@@ -247,9 +240,9 @@ end
 
 function drawConsole()
 	if console_enabled then
-		lg.setColor(51,51,51,191)
+		lgsetColor(51,51,51,191)
 		lg.rectangle('fill',0,0,500,180)
-		lg.setColor(255,255,255)
+		lgsetColor(255,255,255)
 		lg.setFont(consolefont)
 		lg.print('> '..console_text1,0,0)
 		lg.print(console_text2,15,30)
@@ -266,6 +259,8 @@ function nearest(a,b)
 		return false
 	end
 end
+
+--Character draw functions in 1.0.2
 
 function updateCharacter(set,a,b,px,py,chset)
 	if not b then b = '' end
@@ -339,7 +334,6 @@ function hideAll()
 end
 
 function drawCharacter(l,r,a,set,chset)
-	set.y = 0
 	if set.b~='' then
 		if set == n_Set and (n_Set.a=='5' or n_Set.a=='5b') then --set natsuki's head x and y pos
 			xh = set.x + 14
@@ -347,6 +341,9 @@ function drawCharacter(l,r,a,set,chset)
 		else
 			xh = set.x
 			yh = set.y
+		end
+		if global_os == 'LOVE-WrapLua' then
+			yh = yh + 2
 		end
 		if a then lg.draw(a,xh,yh) end
 	end
@@ -358,7 +355,9 @@ function drawCharacter(l,r,a,set,chset)
 		with_set = with_yr
 	end
 	for i = 1, #with_set do
-		if with_set[i] == set.a then
+		if set.a == with_set[i] and global_os == 'LOVE-WrapLua' then
+			lg.draw(r,set.x-1,set.y)
+		elseif set.a == with_set[i] then
 			lg.draw(r,set.x,set.y)
 		end
 	end

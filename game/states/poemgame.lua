@@ -52,7 +52,7 @@ function addpoints()
 	elseif glitchpoem_in and love.math.random(1,11) == 1 then
 		sfxplay('baa')
 	else
-		sfxplay2(sfx1)
+		sfx1:play()
 	end
 	if poemword ~= 21 then poemword = poemword + 1 end
 	if chapter == 22 then
@@ -180,7 +180,7 @@ function drawPoemGame()
 		lg.setBackgroundColor(255,255,255)
 	else
 		lg.setBackgroundColor(0,0,0)
-		lg.setColor(255,255,255,alpha)
+		lgsetColor(255,255,255,alpha)
 		if notebook and not notebook_glitch then
 			lg.draw(notebook)
 		elseif notebook_glitch then
@@ -188,14 +188,9 @@ function drawPoemGame()
 		end
 	end
 	
-	if menu_enabled and menu_type ~= 'pause' then
-		menu_draw()
-		return
-	end
-	
 	lg.setFont(halogenfont)
 	outlineText(word[menuselected][1],wordpos.x[menuselected],wordpos.y[menuselected],'poemgame')
-	lg.setColor(0,0,0)
+	lgsetColor(0,0,0)
 	for i = 1, 10 do
 		lg.print(word[i][1],wordpos.x[i],wordpos.y[i])
 	end
@@ -206,10 +201,10 @@ function drawPoemGame()
 		lg.print('20/20',800,70)
 	end
 	if spAdd and npAdd and ypAdd and dvertype == 'Test' then
-		lg.print(spAdd..'\n'..npAdd..'\n'..ypAdd..'\n'..glitch2g,430,40)
+		lg.print(spAdd..'\n'..npAdd..'\n'..ypAdd..'\n'..glitch2g,0,50)
 	end
 	
-	lg.setColor(255,255,255,alpha)
+	lgsetColor(255,255,255,alpha)
 	if persistent.ptr == 0 then
 		lg.draw(s_sticker,30,s_y)
 		lg.draw(n_sticker,130,n_y)
@@ -230,20 +225,20 @@ function drawPoemGame()
 	end
 	
 	if poemstate == 0 and settings.lang == 'eng' then
-		lg.setColor(255,255,255,alpha)
+		lgsetColor(255,255,255,alpha)
 		lg.draw(poemtime)
 		lg.draw(poemtime2)
 	elseif poemstate == 0 and settings.lang ~= 'eng' then
-		lg.setColor(255,255,255,alpha)
+		lgsetColor(255,255,255,alpha)
 		lg.draw(poemtime,0,0)
-		lg.setColor(0,0,0,alpha)
+		lgsetColor(0,0,0,alpha)
 		lg.setFont(allerfont)
 		lg.print(tr.poemtime,360,255)
 	elseif eyes_in then
-		lg.setColor(0,0,0)
+		lgsetColor(0,0,0)
 		lg.rectangle('fill',0,0,1280,725)
 		if eyes_timer <= 2.2 then
-			lg.setColor(255,255,255)
+			lgsetColor(255,255,255)
 			lg.draw(eyes,352,eyes_y)
 			lg.draw(eyes,352,eyes_y+720)
 			lg.draw(eyes,352,eyes_y+1280)
@@ -251,14 +246,12 @@ function drawPoemGame()
 	end
 	
 	lg.setFont(allerfont)
-	lg.setColor(0,0,0)
-	if menu_enabled then
-		menu_draw()
-	end
+	lgsetColor(0,0,0)
+	if menu_enabled then menu_draw() end
 end
 
 function updatePoemGame()
-	xaload = xaload + dt*60.3
+	xaload = xaload + 1
 	if not spAdd then spAdd = 0 end
 	if not npAdd then npAdd = 0 end
 	if not ypAdd then ypAdd = 0 end
@@ -403,7 +396,7 @@ function poemgamekeypressed(key)
 		if xaload >= 35 then
 			if poemstate == 0 then
 				poemstate = nil
-				sfxplay2(sfx1)
+				sfx1:play()
 			elseif poemword <= 19 then
 				addpoints()
 				updatewordlist()

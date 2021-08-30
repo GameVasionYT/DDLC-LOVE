@@ -3038,10 +3038,10 @@ function ch1_s_good()
 			cw('bl',"I'm sure Yuri's opinion has to be a little more constructive than this.")
 		end
 	elseif cl == 686 then
-		if not readpoem.n==1 then
-			cw('bl',"Maybe even Natsuki's.")
-		else
+		if readpoem.y==1 then
 			scriptJump(687)
+		else
+			cw('bl',"Maybe even Natsuki's.")
 		end
 	elseif cl == 687 then
 		cw('mc',"Are you sure you don't like it just because I wrote it?")

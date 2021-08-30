@@ -6,20 +6,15 @@ cgalpha = 255
 function drawGame()
 	lg.setBackgroundColor(0,0,0)
 	
-	if menu_enabled and menu_type ~= 'pause' and menu_type ~= 'choice' and menu_type ~= 'dialog' then
-		menu_draw()
-		return
-	end
-	
-	lg.setColor(255,255,255,alpha)
+	lgsetColor(255,255,255,alpha)
 	lg.draw(bgch)
 	lg.draw(cgch)
-	lg.setColor(255,255,255,bgalpha)
+	lgsetColor(255,255,255,bgalpha)
 	lg.draw(bgch2)
-	lg.setColor(255,255,255,cgalpha)
+	lgsetColor(255,255,255,cgalpha)
 	lg.draw(cgch2)
 	
-	lg.setColor(255,255,255,alpha)
+	lgsetColor(255,255,255,alpha)
 	drawSayori()
 	drawYuri()
 	drawNatsuki()
@@ -31,11 +26,11 @@ function drawGame()
 	end
 	
 	lg.setFont(allerfont)
-	lg.setColor(255,255,255,alpha)
+	lgsetColor(255,255,255,alpha)
 	if dvertype == 'Test' then lg.print(cl,5,690) end
 	if autotimer > 0 then
 		lg.draw(gui.skip,0,27)
-		lg.setColor(0,0,0)
+		lgsetColor(0,0,0)
 		outlineText(tr.auto,5,35)
 	elseif autoskip > 0 then
 		local skiptext
@@ -49,12 +44,10 @@ function drawGame()
 			skiptext = tr.skip
 		end
 		lg.draw(gui.skip,0,27)
-		lg.setColor(0,0,0)
+		lgsetColor(0,0,0)
 		outlineText(skiptext,5,35)
 	end
-	if menu_enabled then
-		menu_draw()
-	end
+	if menu_enabled then menu_draw() end
 end
 
 function updateGame()
@@ -95,15 +88,15 @@ function updateGame()
 	if poem_enabled and poem_scroll and not menu_enabled then
 		if g_system == 'Switch' then
 			if joystick:isGamepadDown('dpup') then
-				poem_scroll.y = poem_scroll.y + dt*25
+				poem_scroll.y = poem_scroll.y + 0.3
 			elseif joystick:isGamepadDown('dpdown') then
-				poem_scroll.y = poem_scroll.y - dt*25
+				poem_scroll.y = poem_scroll.y - 0.3
 			end
 		else
 			if love.keyboard.isDown('up') and poem_scroll.y < 1 then
-				poem_scroll.y = poem_scroll.y + dt*25
+				poem_scroll.y = poem_scroll.y + 0.3
 			elseif love.keyboard.isDown('down') then
-				poem_scroll.y = poem_scroll.y - dt*25
+				poem_scroll.y = poem_scroll.y - 0.3
 			end
 		end
 	end
@@ -119,10 +112,10 @@ function game_keypressed(key)
 		autotimer = 0
 		menu_enable('pause')
 	elseif key == 'start' or key == 'return' then --auto on/off
-		if global_os ~= 'LOVE-WrapLua' then sfxplay2(sfx1) end
+		if global_os ~= 'LOVE-WrapLua' then sfx1:play() end
 		if autotimer == 0 then autotimer = 0.01 else autotimer = 0 end		
 	elseif key == 'rightshoulder' or key == 'r' then
-		if global_os ~= 'LOVE-WrapLua' then sfxplay2(sfx1) end
+		if global_os ~= 'LOVE-WrapLua' then sfx1:play() end
 		if not event_enabled then
 			if autoskip < 1 then autoskip = 1
 			elseif autoskip > 0 then autoskip = 0 end
@@ -148,11 +141,7 @@ function newgame_keypressed(key)
 	elseif key == 'b' then
 		textboxd = not textboxd
 	elseif key == 'back' or key == '-' then
-		if settings.o ~= 1 then
-			settings.o = 1
-		else
-			settings.o = 0
-		end
-		savesettings()
+		if settings.o ~= 1 then settings.o = 1
+		else settings.o = 0 end
 	end
 end

@@ -1115,7 +1115,8 @@ function ch22_m_end()
 	elseif cl == 734 then
 	scriptJump(737)
 	elseif cl == 737 then
-	poem_disable(0)
+	poem_disable()
+	audioUpdate('0')
 	pause(2.5)
 	elseif cl == 738 then
 	audioUpdate('5')

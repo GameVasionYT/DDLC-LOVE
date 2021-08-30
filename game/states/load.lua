@@ -7,10 +7,6 @@ if g_system == 'Switch' then
 	savedir = 'sdmc:/switch/DDLC-LOVE/'
 elseif g_system == 'Vita' then
 	savedir = 'ux0:/data/DDLC-LOVE/savedata/'
-elseif global_os == 'Linux' then
-    savedir = '$HOME/.local/share/love/DDLC-LOVE/'
-elseif global_os == 'Windows' then
-    savedir = '%appdata%\\LOVE\\DDLC-LOVE\\'
 else
 	savedir = 'savedir'
 end
@@ -18,7 +14,7 @@ end
 function drawLoad()
 	lg.setBackgroundColor(0,0,0)
 	if err ~= '' then
-		lg.setColor(255,255,255)
+		lgsetColor(255,255,255)
 		lg.print(err,10,10)
 	else
 		lg.rectangle('fill',0,710,256*(l_timer-95),10)
@@ -26,7 +22,6 @@ function drawLoad()
 end
 
 function updateLoad()
-	--love.filesystem.append("logfile",'l_timer: '..l_timer)
 	print('l_timer: '..l_timer)
 	if l_timer < 99 then
 		l_timer = l_timer + 1
@@ -54,14 +49,14 @@ function checkLoad()
 		game_setvolume()
 	end
 	
-	if settings.lang and f2 then
+    if settings.lang and f2 then
 		require('scripts/'..settings.lang..'/text')
 		loaderAssets(101)
-	elseif g_system == 'Switch' then
-		settings.lang = 'eng'
-		savesettings()
-		require('scripts/'..settings.lang..'/text')
-		loaderAssets(101)
+    elseif g_system == 'Switch' then
+        settings.lang = 'eng'
+        savesettings()
+        require('scripts/'..settings.lang..'/text')
+        loaderAssets(101)
 	else
 		settings.lang = 'eng'
 		require('scripts/eng/text')
@@ -80,7 +75,7 @@ function checkLoad()
 		changeState('ghostmenu')
 		persistent.chr.s = 2
 		savepersistent()
-	elseif persistent.chr.m == 2 or (persistent.chr.m == 0 and chapter == 30) then
+	elseif persistent.chr.m == 2 then
 		changeState('game','autoload')
 	else
 		l_timer = 100

@@ -33,8 +33,7 @@ function poem(poemname)
 			'The bread, my hungry curiosity.',
 			'The raccoon, an urge.','',
 			
-			'The moon increments its phase and reflects that much more light off of my cutting',
-			'knife.',
+			'The moon increments its phase and reflects that much more light off of my cutting knife.',
 			'The very same light that glistens in the eyes of my raccoon friend.',
 			'I slice the bread, fresh and soft. The raccoon becomes excited.',
 			'Or perhaps I\'m merely projecting my emotions onto the newly-satisfied animal.','',
@@ -114,13 +113,12 @@ function poem(poemname)
 			'Exponential gearbox. A sky of exploding stars. God disproving the existence of God.',
 			'A wheel rotating in six dimensions. Forty gears and a ticking clock. A clock that',
 			'ticks one second for every rotation of the planet. A clock that ticks forty times',
-			'every time it ticks every second time. A bolthead of holy stakes tied to the',
-			'existence of a docked ship to another world. A kaleidoscope of blood written in',
-			'clocks. A time-devouring prayer connecting a sky of forty gears and open human eyes',
-			'in all directions. Breathing gearbox. Breathing bolthead. Breathing ship. Breathing',
-			'portal. Breathing snakes. Breathing God. Breathing blood. Breathing holy stakes.',
-			'Breathing human eyes. Breathing time. Breathing prayer. Breathing sky. Breathing',
-			'wheel.'}
+			'every time it ticks every second time. A bolthead of holy stakes tied to the existence',
+			'of a docked ship to another world. A kaleidoscope of blood written in clocks.',
+			'A time-devouring prayer connecting a sky of forty gears and open human eyes in all',
+			'directions. Breathing gearbox. Breathing bolthead. Breathing ship. Breathing portal.',
+			'Breathing snakes. Breathing God. Breathing blood. Breathing holy stakes. Breathing',
+			'human eyes. Breathing time. Breathing prayer. Breathing sky. Breathing wheel.'}
 			
 	elseif poemname == 'poem_y23' then
 		poem_author = 'yuri'
@@ -341,8 +339,7 @@ b3AgbXlzZWxmLg==]]};
 			'Night after night, more dreams.',
 			'Friend after friend, more bottles.',
 			'Deeper and deeper my fingers go.',
-			'Like exploring a dark cave, discovering the secrets hiding in the nooks and',
-			'crannies.',
+			'Like exploring a dark cave, discovering the secrets hiding in the nooks and crannies.',
 			'Digging and digging.',
 			'Scraping and scraping.','',
 			
@@ -369,16 +366,16 @@ b3AgbXlzZWxmLg==]]};
 		poemtext = {
 			'%','',
 
-			'Get out of my head. Get out of my head. Get out of my head. Get out of my',
-			'head. Get out of my head. Get out of my head. Get out of my head. Get out',
-			'of my head. Get out of my head. Get out of my head. Get out of my head.',
-			'Get out of my head. Get out of my head. Get out of my head. Get out of my',
-			'head. Get out of my head. Get out of my head. Get out of my head. Get out',
-			'of my head. Get out of my head. Get out of my head. Get out of my head.',
-			'Get out of my head. Get out of my head. Get out of my head. Get out of my',
-			'head. Get out of my head. Get out of my head. Get out of my head. Get out',
-			'of my head. Get out of my head. Get out of my head. Get out of my head.',
-			'Get out of my head. Get out of','',
+			'Get out of my head. Get out of my head. Get out of my head. Get out of my head. Get',
+			'out of my head. Get out of my head. Get out of my head. Get out of my head. Get out',
+			'of my head. Get out of my head. Get out of my head. Get out of my head. Get out of',
+			'my head. Get out of my head. Get out of my head. Get out of my head. Get out of my',
+			'head. Get out of my head. Get out of my head. Get out of my head. Get out of my head.',
+			'Get out of my head. Get out of my head. Get out of my head. Get out of my head. Get',
+			'out of my head. Get out of my head. Get out of my head. Get out of my head. Get out',
+			'of my head. Get out of my head. Get out of my head. Get out of my head. Get out of',
+			'my head. Get out of my head. Get out of my head. Get out of my head. Get out of my',
+			'head. Get out of my head. Get out of','',
 			'Get.',
 			'Out.',
 			'Of.',
@@ -389,7 +386,7 @@ b3AgbXlzZWxmLg==]]};
 			'Get out of my head before I listen to everything she said to me.',
 			'Get out of my head before I show you how much I love you.',
 			'Get out of my head before I finish writing this poem.',
-			'','','','','','','','',
+			'','','','','','','','','',
 			
 			'But a poem is never actually finished.',
 			'It just stops moving.'};
@@ -548,5 +545,44 @@ b3AgbXlzZWxmLg==]]};
 	else poemtext = {''}
 	end
 	
-	loaderPoems()
+	if xaload == 0 then
+		sfxplay('pageflip')
+		if poem_author == 'yuri' then
+			if yuri_2 then
+				poembg = lgnewImage('assets/images/bg/poem_y1.png')
+				audioUpdate('0')
+			elseif yuri_3 then
+				poembg = lgnewImage('assets/images/bg/poem1.png')
+				
+				audioUpdate('5_yuri2')
+			else
+				audioUpdate('5_yuri')
+			end
+		elseif poem_author == 'sayori' then
+			if chapter ~= 5 then
+				audioUpdate('5_sayori')
+			end
+		elseif poem_author == 'natsuki' then
+			audioUpdate('5_natsuki')
+		elseif poem_author == 'monika' and persistent.ptr <= 2 then
+			audioUpdate('5_monika')
+		end
+		poem_scroll = {x=1,y=1}
+	
+	elseif xaload > 0 then
+		if not poem_scroll then
+			poem_scroll = {x=1,y=1}
+		end
+	end
+end
+
+function poem_disable(x)
+	poem_enabled = false
+	poem_scroll = nil
+	poembg = nil
+	if not x or x == 1 then
+		audioUpdate('5')
+	elseif x == 0 then
+		audioUpdate('0')
+	end
 end

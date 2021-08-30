@@ -1,14 +1,12 @@
-dversion = "v1.2.2"
-dvertype = "" --put 'Test' for test mode
+dversion = 'v1.1.9'
+dvertype = '' --put 'Test' for test mode
 print("DDLC-LOVE "..dversion..' '..dvertype)
 
 global_os = love.system.getOS()
 g_system = love._console_name
-if g_system == "Switch" then
+if g_system == 'Switch' then
 	joysticks = love.joystick.getJoysticks()
 	joystick = joysticks[1]
-elseif not g_system then
-	g_system = global_os
 end
 love.math.setRandomSeed(os.time())
 math.randomseed(os.time())
@@ -18,7 +16,6 @@ math.random()
 
 local require_old = require
 function require(req)
-	--love.filesystem.append("logfile",'require: '..req)
 	print('require: '..req)
 	return require_old(req)
 end
@@ -32,7 +29,7 @@ require('saveload')
 require('draw')
 require('scripts/script')
 
-function love.load()
+function love.load() 
 	lg.setBackgroundColor(0,0,0)
 	getTime = 0
 	startTime = getTime
@@ -54,11 +51,10 @@ function love.load()
 	end
 	
 	if global_os ~= 'Horizon' and global_os ~= 'LOVE-WrapLua' then
-		--love.window.setFullscreen(true)
+		love.window.setFullscreen(true)
 		love.window.setTitle('DDLC-LOVE')
-		love.window.setMode(1280, 720)
 		love.keyboard.setTextInput(false)
-		--dwidth, dheight = love.window.getDesktopDimensions()
+		dwidth, dheight = love.window.getDesktopDimensions()
 	end
 	
 	changeState('load')
@@ -98,8 +94,8 @@ function love.update()
 	
 	getTime = getTime + dt
 	--moving background
-	posX = posX - dt*37.5
-	posY = posY - dt*37.5
+	posX = posX - 0.625
+	posY = posY - 0.625
 	if posX <= -200 then posX = 0 end
 	if posY <= -200 then posY = 0 end
 	
@@ -132,24 +128,6 @@ function love.update()
 end
 
 function love.keypressed(key)
-	if global_os ~= "LOVE-WrapLua" and g_system ~= "Switch" then
-		if key == "space" or key == "return" then
-			key = "a"
-		elseif key == "escape" or key == "backspace" then
-			key = "b"
-		elseif key == "1" or key == "lshift" or key == "rshift" then
-			key = "y"
-		elseif key == "2" then
-			key = "r"
-		elseif key == "3" then
-			key = "start"
-		elseif key == "4" then
-			key = "back"
-		elseif key ~= "up" and key ~= "down" and key ~= "left" and key ~= "right" then
-			key = ""
-		end
-	end
-	
 	if menu_enabled ~= true then
 		if state == 'splash' or state == 'splash2' then
 			splash_keypressed(key)

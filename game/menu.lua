@@ -19,22 +19,15 @@ local dversionx = 1180
 local ca1 = {70,140,210}
 local xpsc = 400
 local ypsc = {35,65,95,125}
-local hold = 0
-local scanbuttons = {'up','down','left','right'}
-local cond = {}
-local hold = {0,0,0,0}
 menu_alpha = 0
 
 function savepicLoad(i)
-	save_bpic[i] = lgnewImage('assets/images/bg/save/'..loadstring('return save'..chch..'.bg1')()..'.jpg')
+	save_bpic[i] = lgnewImage('assets/images/bg/save/'..loadstring('return save'..chch..'.bg1')()..'.png')
 end
 
 function savepicFree()
 	for i = 1, #save_bpic do
-		if type(save_bpic[i]) == "number" then
-			Graphics.freeImage(save_bpic[i])
-			save_bpic[i] = nil
-		end
+		if save_bpic[i] then save_bpic[i] = nil end
 	end
 end
 
@@ -125,13 +118,13 @@ end
 
 function menu_drawstuff(a)
 	if a == 'dialog' then
-		lg.setColor(255,189,225,255)
+		lgsetColor(255,189,225,255)
 		lg.rectangle('fill',400,180,480,360)
-		lg.setColor(255,230,244,255)
+		lgsetColor(255,230,244,255)
 		lg.rectangle('fill',410,190,460,340)
-		lg.setColor(255,189,225,255)
+		lgsetColor(255,189,225,255)
 	elseif a == 'overlay' then
-		lg.setColor(255,255,255,menu_alpha)
+		lgsetColor(255,255,255,menu_alpha)
 		lg.draw(menu_bg,posX,posY)
 		lg.draw(gui.mmenu)
 		if menu_previous == 'pause' then
@@ -144,37 +137,34 @@ function menu_drawstuff(a)
 end
 
 function menu_draw()
-	lg.setColor(255,255,255,menu_alpha)
+	lgsetColor(255,255,255,menu_alpha)
 	
 	if menu_type == 'title' then
 		lg.draw(gui.check,-670+titlebg_ypos,(cY/1.2)+280)
 		
 	elseif menu_type == 'choice' or menu_type == 'mainyesno' or menu_type == 'quityesno' or menu_type == 'language' then
-		if menu_type == 'mainyesno' or menu_type == 'quityesno' then
-			lg.draw(menu_bg,posX,posY)
-		end
 		if menu_type == 'choice' then
-			lg.setColor(255,255,255,255)
+			lgsetColor(255,255,255,255)
 			lg.draw(textbox,230,565)
-			outlineText(menutext,260,593,'c_disp')
+			outlineText(menutext,250,590)
 		else
-			lg.setColor(255,255,255,128)
+			lgsetColor(255,255,255,128)
 			lg.rectangle('fill',0,0,1280,725)
 			menu_drawstuff('dialog')
-			lg.setColor(0,0,0)
+			lgsetColor(0,0,0)
 			lg.print(menutext,430,190)
 		end
 		for i = 1, 8 do
 			if menu_items >= i+1 then
-				lg.setColor(255,189,255,menu_alpha)
+				lgsetColor(255,189,255,menu_alpha)
 				lg.rectangle('fill',435, 195+(50*i),410,42)
-				lg.setColor(255,230,244,menu_alpha)
+				lgsetColor(255,230,244,menu_alpha)
 				lg.rectangle('fill',440, 200+(50*i),400,32)
 			end
 		end
-		lg.setColor(255,255,255,menu_alpha/2.5)
+		lgsetColor(255,255,255,menu_alpha/2.5)
 		lg.rectangle('fill',435,195+(50*(m_selected-1)),410,42)
-		lg.setColor(0,0,0,menu_alpha)
+		lgsetColor(0,0,0,menu_alpha)
 		for i = 1, 8 do
 			if menu_items >= i+1 and menu_type == 'choice' and choices[i] and m_selected ~= i+1 then
 				lg.print(choices[i],440,200+(50*i))
@@ -183,44 +173,42 @@ function menu_draw()
 			end
 		end		
 		if menu_items >= m_selected and menu_type == 'choice' and choices[m_selected-1] then
-			outlineText(choices[m_selected-1],440,150+(50*m_selected),'m_selected')
+			outlineText(choices[m_selected-1],440,150+(50*m_selected))
 		elseif menu_items >= m_selected and itemnames[m_selected-1] then
-			outlineText(itemnames[m_selected-1],440,150+(50*m_selected),'m_selected')
+			outlineText(itemnames[m_selected-1],440,150+(50*m_selected))
 		end
 		lg.draw(gui.check,408,200+(50*(m_selected-1)))
 		
 	elseif menu_type == 'dialog' then
-		lg.setColor(255,255,255,128)
+		lgsetColor(255,255,255,128)
 		lg.rectangle('fill',0,0,1280,725)
 		menu_drawstuff('dialog')
-		lg.setColor(255,189,255,255)
+		lgsetColor(255,189,255,255)
 		lg.rectangle('fill',435,245,410,42)
-		lg.setColor(255,230,244,255)
+		lgsetColor(255,230,244,255)
 		lg.rectangle('fill',440,250,400,32)
-		lg.setColor(255,255,255,menu_alpha/2.5)
+		lgsetColor(255,255,255,menu_alpha/2.5)
 		lg.rectangle('fill',435,245,410,42)
-		lg.setColor(0,0,0,255)
+		lgsetColor(0,0,0,255)
 		lg.print(menutext,430,190)
-		outlineText(tr.missing[2],440,250,'m_selected')
+		outlineText(tr.missing[2],440,250)
 		lg.draw(gui.check,408,250)
 		
 		
 	elseif menu_type == 'pause' then
 		lg.draw(gui.gmenu)
 		lg.draw(gui.gamebuttons)
-		if gui.gamemenu then
-			lg.draw(gui.gamemenu)
-		end
+		lg.draw(gui.gamemenu)
 		lg.draw(gui.check,50,(cY/1.2)+240)
 		
 	elseif menu_type == 'help' then
-		lg.setColor(255,255,255,menu_alpha)
+		lgsetColor(255,255,255,menu_alpha)
 		lg.draw(menu_bg,posX,posY)
-		lg.setColor(255,189,225,menu_alpha)
+		lgsetColor(255,189,225,menu_alpha)
 		lg.rectangle('fill',100,50,1080,620)
-		lg.setColor(255,230,244,menu_alpha)
+		lgsetColor(255,230,244,menu_alpha)
 		lg.rectangle('fill',120,70,1040,580)
-		lg.setColor(0,0,0,menu_alpha)
+		lgsetColor(0,0,0,menu_alpha)
 		lg.print(menutext,140,90)
 		local keys = {}
 		if global_os == 'LOVE-WrapLua' then
@@ -229,12 +217,10 @@ function menu_draw()
 			else
 				keys = {'Circle, (L)','Start','(R)','Square','Cross','Select'}
 			end
-		elseif g_system == "Switch" then
-			keys = {'(A), (L)','(+)','(R)','(Y)','(B)','(-)'}
 		else
-			keys = {'Space, Return', '3', '2', '1', 'Esc', '4'}
+			keys = {'(A), (L)','(+)','(R)','(Y)','(B)','(-)'}
 		end
-		lg.setColor(0,0,0)
+		lgsetColor(0,0,0)
 		lg.print('Key Bindings:',160,120)
 		lg.print(keys[1]..tr.menuhelp[1],160,160)
 		lg.print(keys[2]..tr.menuhelp[2],160,190)
@@ -248,10 +234,8 @@ function menu_draw()
 	elseif menu_type == 'savegame' or menu_type == 'loadgame' then
 		menu_drawstuff('overlay')
 		if menu_type == 'loadgame' then
-			gui.gamemenu = gui.load
 			lg.draw(gui.load)
 		elseif menu_type == 'savegame' then
-			gui.gamemenu = gui.save
 			lg.draw(gui.save)
 		end
 		if m_selected >= 2 and m_selected <= 4 then
@@ -272,28 +256,22 @@ function menu_draw()
 				apx.x = save_oset.x[i-3]
 				apx.y = save_oset.y[2]
 			end
-			lg.setColor(236,182,229,menu_alpha)
-			lg.rectangle("fill",apx.x+10,apx.y-40,256,144)
-			lg.setColor(255,255,255,menu_alpha)
+			lgsetColor(255,255,255,menu_alpha)
+			lg.draw(gui.slotidle,apx.x,apx.y-50)
 			lg.draw(save_bpic[i],apx.x+10,apx.y-40)
-			lg.setColor(0,0,0,menu_alpha)
+			lgsetColor(0,0,0,menu_alpha)
 			lg.print(savenum[i]..': '..save_date[i],(apx.x+10),(apx.y+110))
 		end
 		if savenumber == 61 then
 			lg.print(menutext,366,138)
 		else
 			lg.print('Page '..pagenum,751,138)
-			lg.setColor(170,170,170,255)
-			lg.print("1\t2\t3\t4\t5\t6\t7\t8\t9\t10",627,660)
+			lg.print('(< L | R >)',1110,138)
 		end
-		
-		lg.setColor(255,255,255,128)
-		lg.rectangle("fill",save_hoverpos.x+10,save_hoverpos.y-40,256,144)
 		
 	elseif menu_type == 'settings' then
 		menu_drawstuff('overlay')
-		lg.setColor(255,255,255)
-		gui.gamemenu = gui.settings
+		lgsetColor(255,255,255)
 		lg.draw(gui.settings)
 		lg.draw(gui.setbuttons)
 		local hv = {x=0,y=0}
@@ -322,7 +300,7 @@ function menu_draw()
 		lg.draw(gui.scrhover,(settings.bgmvol*3.4)+818,446)
 		lg.draw(gui.scrhover,(settings.sfxvol*3.4)+818,514)
 		lg.draw(gui.check,hv.x,hv.y)
-		lg.setColor(0,0,0)
+		lgsetColor(0,0,0)
 		lg.print(settings.textspd,525,340)
 		lg.print(settings.autospd,625,410)
 		lg.print(settings.masvol..'%',1020,340)
@@ -332,9 +310,8 @@ function menu_draw()
 		
 	elseif menu_type == 'history' then
 		menu_drawstuff('overlay')
-		gui.gamemenu = gui.history
 		lg.draw(gui.history)
-		lg.setColor(0,0,0)
+		lgsetColor(0,0,0)
 		
 		for i = 1, #history do
 			local temptext = wrap(history[i],70)
@@ -348,36 +325,33 @@ function menu_draw()
 		end
 	else
 		menu_drawstuff('overlay')
-		lg.setColor(255,189,225,menu_alpha)
+		lgsetColor(255,189,225,menu_alpha)
 		for i = 1, 8 do
 			if menu_items >= i+1 then lg.rectangle('fill',360, 110+(50*i),200,32) end
 		end
-		lg.setColor(0,0,0,menu_alpha)
+		lgsetColor(0,0,0,menu_alpha)
 		lg.draw(gui.check,cX+200,cY)
 		lg.print(menutext,340,90)
 	end
 	
-	
+	lgsetColor(0,0,0,menu_alpha)
 	if menu_type == 'characters' then
-		lg.setColor(255,255,255,menu_alpha)
-		lg.draw(gui.gamemenu)
-		lg.setColor(0,0,0,menu_alpha)
 		for i = 1, 8 do
 			if menu_items >= i+1 and itemnames[i] then
-				lg.print(itemnames[i],362,110+(50*i))
+				lg.print(itemnames[i],360,110+(50*i))
 			end
 		end
 	end
 	
 	if persistent.act2[2] < 1 and menu_mchance == 50 and persistent.ptr == 2 then
-		lg.setColor(255,255,255,255)
+		lgsetColor(255,255,255,255)
 		lg.draw(menu_bg_m)
 	end
 end
 
 function menu_update()
 	if menu_fadeout then
-		menu_alpha = math.max(menu_alpha - dt*1000, 0)
+		menu_alpha = math.max(menu_alpha - 15, 0)
 		if menu_alpha == 0 then
 			menu_enabled = false
 			menu_type = nil
@@ -385,7 +359,7 @@ function menu_update()
 			menu_fadeout = false
 		end
 	else
-		menu_alpha = math.min(menu_alpha + dt*1000, 255)
+		menu_alpha = math.min(menu_alpha + 15, 255)
 	end
 	
 	if persistent.act2[2] < 1 and menu_mchance == 50 and persistent.ptr == 2 then
@@ -399,47 +373,27 @@ function menu_update()
 	if menu_type == 'history' then
 		if g_system == 'Switch' then
 			if joystick:isGamepadDown('dpdown') and history_scr > -39 then
-				history_scr = history_scr - dt*15
-			elseif joystick:isGamepadDown('dpup') and history_scr < 2 then
-				history_scr = history_scr + dt*15
+				history_scr = history_scr - 0.2
+			elseif joystick:isGamepadDown('dpup') and history_scr < 0 then
+				history_scr = history_scr + 0.2
 			end
 		else
 			if love.keyboard.isDown('down') and history_scr > -39 then
-				history_scr = history_scr - dt*15
-			elseif love.keyboard.isDown('up') and history_scr < 2 then
-				history_scr = history_scr + dt*15
+				history_scr = history_scr - 0.2
+			elseif love.keyboard.isDown('up') and history_scr < 0 then
+				history_scr = history_scr + 0.2
 			end
-		end
-	end
-	
-	for i = 1, #scanbuttons do
-		if g_system == 'Switch' then
-			cond[i] = joystick:isGamepadDown('dp'..scanbuttons[i])
-		else
-			cond[i] = love.keyboard.isDown(scanbuttons[i])
-		end
-		if cond[i] then
-			hold[i] = hold[i] + dt
-			if hold[i] >= 0.35 then
-				if hold[i] > 0.45 then
-					love.keypressed(scanbuttons[i])
-					hold[i] = 0.35
-				end
-			end
-		else
-			hold[i] = 0
 		end
 	end
 end
 
 function menu_confirm()
 	if menu_type == 'title' or menu_type == 'pause' or menu_type == 'choice' or menu_type == 'dialog' then
-		sfxplay2(sfx1)
+		sfx1:play()
 	end
 	
 	if menu_type == 'title' then --title screen options
 		menu_previous = 'title'
-		m_selected2 = m_selected
 		
 		if m_selected == 2 then --new game
 			bg1 = 'black'
@@ -473,7 +427,7 @@ function menu_confirm()
 			menu_enable('help')
 			
 		elseif m_selected == 6 then --quit
-			menu_enable('quityesno')
+			love.event.quit()
 		end
 		
 	elseif menu_type == 'loadgame' and persistent.chr.m ~= 2 then --load game confirm
@@ -506,8 +460,6 @@ function menu_confirm()
 	
 	elseif menu_type == 'pause' then --pause menu options
 		menu_previous = menu_type
-		m_selected2 = m_selected
-		
 		if m_selected == 2 then
 			menu_enable('history')
 		elseif m_selected == 3 then
@@ -607,11 +559,15 @@ function m_select(arg)
 	cY = 110+(50*(m_selected-1))
 end
 
+function sfx2play()
+	if global_os ~= 'LOVE-WrapLua' then
+		sfx2:play()
+	end
+end
+
 function menu_keypressed(key)
 	if key == 'down' then
-		if menu_type ~= 'history' and menu_type ~= 'savegame' and menu_type ~= 'loadgame' then
-			sfxplay2(sfx2)
-		end
+		sfx2play()
 		if menu_type == 'savegame' or menu_type == 'loadgame' then
 			if m_selected <= 4 then
 				m_selected = m_selected + 3
@@ -626,9 +582,7 @@ function menu_keypressed(key)
 		m_select()
 		
 	elseif key == 'up' then
-		if menu_type ~= 'history' and menu_type ~= 'savegame' and menu_type ~= 'loadgame'  then
-			sfxplay2(sfx2)
-		end
+		sfx2play()
 		if menu_type == 'savegame' or menu_type == 'loadgame' then
 			if m_selected >= 5 and m_selected <= 7 then
 				m_selected = m_selected - 3
@@ -657,25 +611,14 @@ function menu_keypressed(key)
 			menu_enable(menu_previous)
 		end
 		savepicFree()
-		if m_selected2 then
-			m_selected = m_selected2
-			m_select()
-			m_selected2 = nil
-		end
 		menu_previous = nil
 		
 	elseif key == 'left' then
 		if menu_type == 'savegame' or menu_type == 'loadgame' then
-			if (m_selected == 2 or m_selected == 5) and pagenum > 1 then
-				pagenum = pagenum - 1
-				m_selected2 = m_selected
-				menu_enable(menu_type)
-				if m_selected2 == 2 then
-					m_selected = 4
-				elseif m_selected2 == 5 then
-					m_selected = 7
-				end
-			elseif m_selected > 2 and m_selected ~= 5 then
+			sfx2play()
+			if m_selected == 2 or m_selected == 5 then
+				m_selected = m_selected + 2
+			elseif m_selected > 2 then
 				m_selected = m_selected - 1
 			end
 			m_select()
@@ -700,16 +643,10 @@ function menu_keypressed(key)
 		
 	elseif key == 'right' then
 		if menu_type == 'savegame' or menu_type == 'loadgame' then
-			if (m_selected == 4 or m_selected == 7) and pagenum < 10 then
-				pagenum = pagenum + 1
-				m_selected2 = m_selected
-				menu_enable(menu_type)
-				if m_selected2 == 4 then
-					m_selected = 2
-				elseif m_selected2 == 7 then
-					m_selected = 5
-				end
-			elseif m_selected < 7 and m_selected ~= 4 then
+			sfx2play()
+			if m_selected == 4 or m_selected == 7 then
+				m_selected = m_selected - 2
+			elseif m_selected < 7 then
 				m_selected = m_selected + 1
 			end
 			m_select()
@@ -731,17 +668,13 @@ function menu_keypressed(key)
 	elseif key == 'leftshoulder' or key == 'l' then
 		if (menu_type == 'savegame' or menu_type == 'loadgame' or menu_type == 'settings') and pagenum > 1 then
 			pagenum = pagenum - 1
-			m_selected2 = m_selected
 			menu_enable(menu_type)
-			m_selected = m_selected2
 		end
 	
 	elseif key == 'rightshoulder' or key == 'r' then
 		if ((menu_type == 'savegame' or menu_type == 'loadgame') and pagenum < 10) or (menu_type == 'settings' and pagenum < 2) then
 			pagenum = pagenum + 1
-			m_selected2 = m_selected
 			menu_enable(menu_type)
-			m_selected = m_selected2
 		end
 		
 	elseif key == 'y' then

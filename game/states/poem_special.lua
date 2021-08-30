@@ -10,17 +10,17 @@ function poem_special_i(poem)
 	poemsp = {}
 	poemsp.topX = 240
 	if p_number == 5 then
-		poemsp.topimg = lgnewImage('assets/images/poem_special/'..settings.lang..'/poem_special5a.jpg')
+		poemsp.topimg = lgnewImage('assets/images/poem_special/'..settings.lang..'/poem_special5a.png')
 	elseif p_number == 7 then
 		poemsp.topimg = lgnewImage('assets/images/poem_special/poem_special7a.png')
 		poemsp.topX = 328
 	elseif p_number == 12 then
-		poemsp.topimg = lgnewImage('assets/images/poem_special/'..settings.lang..'/poem_end.jpg')
+		poemsp.topimg = lgnewImage('assets/images/poem_special/'..settings.lang..'/poem_end.png')
 	elseif p_number == 13 then
-		poemsp.topimg = lgnewImage('assets/images/poem_special/'..settings.lang..'/poem_end_clearall.jpg')
+		poemsp.topimg = lgnewImage('assets/images/poem_special/'..settings.lang..'/poem_end_clearall.png')
 		poemsp.topX = 0
 	else
-		poemsp.topimg = lgnewImage('assets/images/poem_special/'..settings.lang..'/poem_special'..p_number..'.jpg')
+		poemsp.topimg = lgnewImage('assets/images/poem_special/'..settings.lang..'/poem_special'..p_number..'.png')
 	end
 	state = 'poem_special'
 	xaload = 0
@@ -29,24 +29,24 @@ end
 
 function drawpoem_special()
 	lg.setBackgroundColor(0,0,0)
-	lg.setColor(255,255,255,p_alpha)
+	lgsetColor(255,255,255,p_alpha)
 	lg.draw(poemsp.topimg, poemsp.topX)
 	if p_confirm == 1 and p_number >= 12 then
-		lg.setColor(255,255,255,128)
+		lgsetColor(255,255,255,128)
 		lg.rectangle('fill',0,0,1280,725)
-		lg.setColor(255,189,225,255)
+		lgsetColor(255,189,225,255)
 		lg.rectangle('fill',400,180,480,360)
-		lg.setColor(255,230,244,255)
+		lgsetColor(255,230,244,255)
 		lg.rectangle('fill',410,190,460,340)
-		lg.setColor(255,189,255,255)
+		lgsetColor(255,189,255,255)
 		lg.rectangle('fill',435,245,410,42)
-		lg.setColor(255,230,244,255)
+		lgsetColor(255,230,244,255)
 		lg.rectangle('fill',440,250,400,32)
-		lg.setColor(255,255,255,102)
+		lgsetColor(255,255,255,102)
 		lg.rectangle('fill',435,245,410,42)
-		lg.setColor(0,0,0,255)
+		lgsetColor(0,0,0,255)
 		lg.print(tr.missing[1],430,190)
-		outlineText(tr.missing[2],440,250,'m_selected')
+		outlineText(tr.missing[2],440,250)
 		lg.draw(gui.check,408,250)
 	end
 end
@@ -75,7 +75,7 @@ function poem_special_keypressed(key)
 			xaload = 0
 			sfxplay('giggle')
 		elseif p_number == 5 then
-			poemsp.topimg = lgnewImage('assets/images/poem_special/'..settings.lang..'/poem_special5b.jpg')
+			poemsp.topimg = lgnewImage('assets/images/poem_special/'..settings.lang..'/poem_special5b.png')
 		elseif p_number == 7 then
 			poemsp.topimg = lgnewImage('assets/images/poem_special/poem_special7b.png')
 		end

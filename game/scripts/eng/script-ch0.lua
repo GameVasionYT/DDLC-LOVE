@@ -389,7 +389,7 @@ function ch0script()
 	elseif cl == 158 then 
 		cw('n',"But not for, y-you know, you! Dummy...")
 	elseif cl == 159 then
-		cw('mc',"Alright, alright...")
+		cw('n',"Alright, alright...")
 	elseif cl == 160 then
 		hideNatsuki()
 		cw('bl','I give up on Natsuki\'s weird logic and dismiss the conversation.')
@@ -934,12 +934,11 @@ function ch0script()
 	elseif cl == 10017 then
 		cw('bl','This port, or the original game is not suitable for children or those who are easily disturbed.')
 	elseif cl == 10018 then
-		cw('bl','Individuals suffering from anxiety or depression may not have a safe experience playing this game. For content warnings, please visit: https://ddlc.moe/warning.html')
+		cw('bl','Individuals suffering from anxiety or depression may not have a safe experience playing this game. For content warnings, please visit: http://ddlc.moe/warning.html')
 	elseif cl == 10019 then
-		warning_msg = "By playing Doki Doki Literature Club, you agree that you are at least 13 years of age, and you consent to your exposure of highly disturbing content."
-		cw('bl',warning_msg)
+		cw('bl','By playing Doki Doki Literature Club, you agree that you are at least 13 years of age, and you consent to your exposure of highly disturbing content.')
 	elseif cl == 10020 then
-		menutext = wrap(warning_msg,65)
+		menutext = ''
 		choices = {'I agree.'}
 		choice_enable()
 	elseif cl >= 10021 then

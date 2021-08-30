@@ -10,9 +10,8 @@ local ra6 = 460
 
 function loadCredits(x)
 	if x ~= 1 then
-		logo = lgnewImage('assets/images/cg/credits/ddlc.jpg')
-		m1 = lg.newFont('assets/fonts/m1.ttf',30) --monika poem font
-		halogenfont = lg.newFont('assets/fonts/Halogen.ttf',28) --poem game font
+		logo = lgnewImage('assets/images/cg/credits/ddlc.png')
+		
 		audioUpdate('credits')
 		c_timer = 0
 	end
@@ -22,7 +21,7 @@ end
 
 function drawCredits()
 	lg.setBackgroundColor(0,0,0)
-	lg.setColor(255,255,255,alpha)
+	lgsetColor(255,255,255,alpha)
 	
 	if c_timer < 51 then
 		lg.setFont(m1)
@@ -32,7 +31,7 @@ function drawCredits()
 		lg.print(tr.credits[4],435,350)
 		lg.print(tr.credits[5],498,400)
 		lg.print(tr.credits[6],460,450)
-		lg.setColor(0,0,0)
+		lgsetColor(0,0,0)
 		lg.rectangle('fill',ra1,200,960,60)
 		lg.rectangle('fill',ra2,250,960,60)
 		lg.rectangle('fill',ra3,300,960,60)
@@ -71,7 +70,7 @@ function drawCredits()
 		lg.print("Matt Naples",220,7020 - c_timer2)
 		lg.print("Monika",903,7665 - c_timer2)
 		lg.print(player,910,7710 - c_timer2)
-		lg.setColor(255,185,230)
+		lgsetColor(255,185,230)
 		lg.setFont(rifficfont)
 		lg.print(tr.credits[7],144,855 - c_timer2)
 		lg.print(tr.credits[8],880,1625 - c_timer2)
@@ -90,7 +89,7 @@ function drawCredits()
 		lg.print(tr.splash[16],splashx,10)
 	end
 	
-	lg.setColor(255,255,255)
+	lgsetColor(255,255,255)
 	lg.setFont(allerfont)
 	drawConsole()
 end
@@ -177,7 +176,7 @@ function updateCredits()
 	elseif c_timer >= 162 and c_timer < 163 then
 		updateConsole("_","menu.lua "..tr.credits[14]..".","resources.lua "..tr.credits[14]..".","draw.lua "..tr.credits[14]..".")
 	elseif c_timer >= 163 and c_timer < 164 then
-		updateConsole("os.remove(\"script.lua\")","menu.lua "..tr.credits[14]..".","resources.lua "..tr.credits[14]..".","draw.lua "..tr.credits[14]..".")
+		updateConsole("os.remove(\"scripts/script.lua\")","menu.lua "..tr.credits[14]..".","resources.lua "..tr.credits[14]..".","draw.lua "..tr.credits[14]..".")
 	elseif c_timer >= 164 and c_timer < 165 then
 		updateConsole("_","script.lua "..tr.credits[14]..".","menu.lua "..tr.credits[14]..".","resources.lua "..tr.credits[14]..".")
 	elseif c_timer >= 165 then
